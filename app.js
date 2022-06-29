@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const app = express()
 
 // Connect to the MongoDB database
-mongoose.connect('mongodb+srv://arunkudiyal:examplepwd@cluster0.2pssb.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://arunkudiyal:examplepwd@cluster0.2pssb.mongodb.net/fsd_elite_db?retryWrites=true&w=majority')
     .then(console.log('DB Connected Successfully!'))
     .catch(err => console.log(err))
 
@@ -25,5 +25,12 @@ const ordersRoute = require('./api/routes/orders')
 app.use('/products', productsRoute)
 app.use('/orders', ordersRoute)
 // app.use('/orders', )
+
+// Code --> If there is a request for a route that doesn't exist, then send a 404 error response
+app.use((req, res, next) => {
+    res.status(400).json({
+        message: '404 - Resource not found!'
+    })
+})
 
 module.exports = app;
