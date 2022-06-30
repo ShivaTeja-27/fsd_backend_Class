@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const app = express()
 
@@ -9,6 +10,9 @@ const app = express()
 mongoose.connect('mongodb+srv://arunkudiyal:examplepwd@cluster0.2pssb.mongodb.net/fsd_elite_db?retryWrites=true&w=majority')
     .then(console.log('DB Connected Successfully!'))
     .catch(err => console.log(err))
+
+// Add Cors Middleware
+app.use(cors())
 
 // Use the body-parser middleware to parse the request body into a JavaScript object
 app.use( bodyParser.urlencoded({ extended: false }) )
